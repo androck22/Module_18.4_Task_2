@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using AngleSharp;
+using System;
+using System.Threading.Tasks;
 using YoutubeExplode;
 using YoutubeExplode.Videos.Streams;
 
@@ -6,11 +8,11 @@ namespace Module_18._4_Task_2
 {
     class DownloadVideoCommand : YouTubeCommand
     {
-        readonly Client client;
+        private readonly string _url;
 
-        public DownloadVideoCommand(Client client)
+        public DownloadVideoCommand(string url)
         {
-            this.client = client;
+            _url = url;
         }
 
         public override void Run()
@@ -21,8 +23,8 @@ namespace Module_18._4_Task_2
         public async Task DownloadVideo()
         {
             var youtube = new YoutubeClient();
-
-            var streamManifest = await youtube.Videos.Streams.GetManifestAsync(client.StreamManifest);
+            var video = await youtube.Videos.GetAsync(_url);
+            var streamManifest = await youtube.Videos.Streams.GetManifestAsync(video.Id);
             var streamInfo = streamManifest.GetMuxedStreams().GetWithHighestVideoQuality();
 
             await youtube.Videos.Streams.DownloadAsync(streamInfo, $"video.{streamInfo.Container}");

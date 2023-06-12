@@ -6,10 +6,10 @@ namespace Module_18._4_Task_2
     {
         static void Main()
         {
-            var client = new Client("https://www.youtube.com/watch?v=vit9ZYPl-cs", "vit9ZYPl-cs");
+            var url ="https://www.youtube.com/watch?v=vit9ZYPl-cs";
 
-            var informationVideoCommand = new InformationVideoCommand(client);
-            var downloadVideoCommand = new DownloadVideoCommand(client);
+            var informationVideoCommand = new InformationVideoCommand(url);
+            var downloadVideoCommand = new DownloadVideoCommand(url);
 
             var sender = new Sender();
 

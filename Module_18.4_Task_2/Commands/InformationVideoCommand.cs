@@ -6,11 +6,11 @@ namespace Module_18._4_Task_2
 {
     class InformationVideoCommand : YouTubeCommand
     {
-        readonly Client client;
+        private readonly string _url;
 
-        public InformationVideoCommand(Client client)
+        public InformationVideoCommand(string url)
         {
-            this.client = client;
+            _url = url;
         }
 
         public override void Run()
@@ -22,7 +22,7 @@ namespace Module_18._4_Task_2
         {
             var youtube = new YoutubeClient();
 
-            var video = await youtube.Videos.GetAsync(client.VideoUrl);
+            var video = await youtube.Videos.GetAsync(_url);
 
             var title = video.Title;
             var description = video.Description;
